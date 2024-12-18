@@ -21,13 +21,13 @@ function getLowestScore(maze: string[][]) {
     }
   ]
 
-  let currentFacing = 'E'
+  // let currentFacing = 'R'
 
-  let position: number[] = []
+  let position: any[] = []
   let end: number[] = []
   let notVisited: string[] = []
   let visited: string[] = []
-  let stack: number[][] = []
+  let stack: any[][] = []
 
   for (let i = 0; i < maze.length; i++) {
     for (let j = 0; j < maze[i].length; j++) {
@@ -35,7 +35,7 @@ function getLowestScore(maze: string[][]) {
         notVisited.push(`${i},${j}`)
       }
       if(maze[i][j] == 'S') {
-        position = [i, j, 0, 0]
+        position = [i, j, 0, 'R']
         stack.push(position)
       }
       if(maze[i][j] == 'E') {
@@ -50,16 +50,14 @@ function getLowestScore(maze: string[][]) {
     let currentPosition = stack.shift()!
     notVisited = notVisited.filter(i => i !== `${currentPosition[0]},${currentPosition[1]}`)
     moves.forEach(move => {
-      let nextPosition = [currentPosition[0] + move.move[0], currentPosition[1] + move.move[1], currentPosition[2] + 1, currentPosition[3]]
+      let nextPosition = [currentPosition[0] + move.move[0], currentPosition[1] + move.move[1], currentPosition[2] + 1, move.face]
       if(maze[nextPosition[0]][nextPosition[1]] !== '#' && !visited.includes(`${nextPosition[0]},${nextPosition[1]}`)) {
-        let turn90 = currentFacing !== move.face ? 1 : 0
-        console.log(currentFacing, currentPosition)
         if(maze[nextPosition[0]][nextPosition[1]] == 'E') {
-          nextPosition[3] += turn90
           ends.push(nextPosition)
         } else {
-          currentFacing = move.face
-          nextPosition[3] += turn90
+          if(currentPosition[3] !== move.face) {
+            nextPosition[2] += 1000
+          }
           stack.push(nextPosition)
           visited.push(`${currentPosition[0]},${currentPosition[1]}`)
         }
