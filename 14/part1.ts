@@ -14,7 +14,6 @@ function getSafetyFactor(robots: Robots) {
   while(i < 100) {
     robots.forEach(robot => {
       let newPosition = [robot.p[0] + robot.v[0], robot.p[1] + robot.v[1]]
-      // console.log(newPosition)
       if(newPosition[1] >= height) {
         newPosition[1] = newPosition[1] - height
       }
@@ -29,16 +28,11 @@ function getSafetyFactor(robots: Robots) {
       }
       robot.p = [...newPosition]
     })
-    // console.log(robots)
     i++
   }
-  // console.log(robots)
 
   const horizontalMiddle = Math.trunc(height/2)
   const verticalMiddle = Math.trunc(width/2)
-
-  // console.log('horizontalMiddle', horizontalMiddle)
-  // console.log('verticalMiddle', verticalMiddle)
 
   let firstQuadrant: Robots = robots.filter(robot => robot.p[0] < verticalMiddle && robot.p[1] < horizontalMiddle)
   let secondQuadrant: Robots = robots.filter(robot => robot.p[0] > verticalMiddle && robot.p[1] < horizontalMiddle)
