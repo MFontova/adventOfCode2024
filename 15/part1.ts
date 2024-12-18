@@ -18,8 +18,6 @@ function sumBoxesCoordinates(map: string[][], movements: string[]) {
       }
     })
   })
-
-  // console.log(map.map(l => l.join()))
   
   movements.forEach(movement => {
     let checkingPosition: number[] = [robotPosition[0] + directions[movement][0], robotPosition[1] + directions[movement][1]]
@@ -34,7 +32,6 @@ function sumBoxesCoordinates(map: string[][], movements: string[]) {
       map[robotPosition[0]][robotPosition[1]] = '@'
     }
   })
-  // console.log(map.map(l => l.join()))
 
   let counter = 0
   map.forEach((line, i) => {
